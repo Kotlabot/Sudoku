@@ -1,5 +1,6 @@
 ﻿using System.Drawing;
 using System.Windows.Forms;
+using System.Collections.Generic;
 
 namespace Sudoku
 {
@@ -7,22 +8,27 @@ namespace Sudoku
     {
         public int X { get; set; }
         public int Y { get; set; }
+        public int Value { get; set; }
+        public List<int> PossibleValues { get; set; }
         /// <summary>
         /// Every cell is declared with Size, Location, Font and its style and size, FlatStyle and Flatappearance
         /// </summary>
         /// <param name="x"></ first cells coordinate>
         /// <param name="y"></ second cells coordinate>
-        public Cell(int x, int y)
+        public Cell(int row, int column, int value = 0)
         {
-            X = x;
-            Y = y;
-    
+            X = column;
+            Y = row;
+            Value = value;
+            
             Size = new Size(45, 45);
-            Location = new Point(x * 45, y * 45);
+            Location = new Point(X * 45, Y * 45);
             Font = new Font("Arial", 23, FontStyle.Bold);
             ForeColor = Color.Black;
             FlatStyle = FlatStyle.Flat;
             FlatAppearance.BorderColor = Color.Black;
+
+            PossibleValues = new List<int>() {1, 2, 3, 4, 5, 6, 7, 8, 9};
         }
 
         public void ClearCell()
