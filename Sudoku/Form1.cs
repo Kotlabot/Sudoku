@@ -2,6 +2,7 @@
 using System.Windows.Forms;
 using System.Collections.Generic;
 using System;
+using System.Data.Common;
 
 namespace Sudoku
 {
@@ -67,6 +68,8 @@ namespace Sudoku
             ClearGrid();
 
             FillDiagonalSquares();
+
+            FillRestOfTheGrid(0, 0);
               
         }
 
@@ -85,21 +88,22 @@ namespace Sudoku
         {
             //Make list of possible values for a cell, from which we step by step remove used values
             List<int> possibleValues = new List<int>() { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
-            int value;
+            int index;
             int startColumn = column;
 
             for(int i = 0; i < 3; i++)
             {
-                for(int j = 0; j < 3; j++)
+                for (int j = 0; j < 3; j++)
                 {
                     //randomValue pics one index from defined range, number on that index of a list possibleNumbers is than assigned to cell as a cell.Value
-                    value = randomValue.Next(0, possibleValues.Count - 1);
-                    grid[row, column].Value = possibleValues[value];
-                    //Storing value as a text in every cell just to make sure hte grid loads right. Erase after final compilation.
-                    grid[row, column].Text = possibleValues[value].ToString();
-                    possibleValues.Remove(possibleValues[value]);
+                    index = randomValue.Next(0, possibleValues.Count - 1);
+                    grid[row, column].Value = possibleValues[index];
+                    //Storing value as a text in every cell just to make sure the grid loads right. Erase after final compilation.
+                    grid[row, column].Text = possibleValues[index].ToString();
 
-                    ReduceCellsValues(row, column, value);
+                    ReduceCellsValues(row, column, possibleValues[index]);
+
+                    possibleValues.Remove(possibleValues[index]);
 
                     column++;
                 }
@@ -110,10 +114,10 @@ namespace Sudoku
 
         private void ReduceCellsValues(int row, int column, int value)
         {
-            //After assigning a value to one cell, reduce this value in list of possible values of every cell in the same row and column.
-            for(int i = 0; i < 9; i++)
+            // Reduce this value in the list of possible values of every cell in the same row and column.
+            for (int i = 0; i < 9; i++)
             {
-                if(i != column)
+                if (i != column)
                 {
                     grid[row, i].PossibleValues.Remove(value);
                 }
@@ -124,73 +128,140 @@ namespace Sudoku
                 }
             }
 
-            //Reduce this value in list of possible values of every cell in the same square 3x3
-            for (int i = row - (row % 3); i < row - (row % 3) + 3; i++)
+            // Reduce this value in the list of possible values of every cell in the same 3x3 square
+            int startRow = row - row % 3;
+            int startCol = column - column % 3;
+
+            for (int i = startRow; i < startRow + 3; i++)
             {
-                for (int j = column - (column % 3); j < column - (column % 3) + 3; j++)
+                for (int j = startCol; j < startCol + 3; j++)
                 {
-                    if (i != row && j != column)
+                    if (i != row || j != column)
                     {
                         grid[i, j].PossibleValues.Remove(value);
                     }
-
                 }
             }
         }
 
-        // // // // Work in progress // // // //
-        private bool FindValueForOneCell(int x, int y, List<int> possibleNumbers)
+        /// <summary>
+        /// Filling rest of the grid, using DFS and backtracking algorithm, starting in a cell [0, 0].
+        /// </summary>
+        private bool FillRestOfTheGrid(int row, int column)
         {
-            Random randomNumber = new Random();
-            var value = randomNumber.Next(possibleNumbers.Count);
-
-            while (!IsValidNumber(x, y, value))
+            // If row index is equal to or more than 9, whole grid is filled
+            if (row >= 9)
             {
-                if (possibleNumbers.Count < 1)
-                {
-                    return false;
-                }
-                possibleNumbers.Remove(value);
-                FindValueForOneCell(x, y, possibleNumbers);
+                return true; 
             }
 
-            grid[x, y].Value = value;
-            grid[x, y].Text = value.ToString();
+            // If column index is equal to or more than 9, move to the next row and set column to zero
+            if (column >= 9)
+            {
+                return FillRestOfTheGrid(row + 1, 0);
+            }
 
-            return true;
+            // If a cell is already filled (earlier filled diagonal 3x3 squares), move to the next column
+            if (grid[row, column].Value != 0)
+            {
+                return FillRestOfTheGrid(row, column + 1);
+            }
+
+            var possibleValuesCopy = new List<int>(grid[row, column].PossibleValues);
+
+            foreach (var value in possibleValuesCopy)
+            {
+                // For each value in list of possible values in a cell, check if its correct and assing it to the cell as cell.Value, then reduce this value
+                if (IsValidNumber(row, column, value))
+                {
+                    grid[row, column].Value = value;
+                    grid[row, column].Text = value.ToString();
+                    ReduceCellsValues(row, column, value);
+
+                    if (FillRestOfTheGrid(row, column + 1))
+                    {
+                        return true;
+                    }
+
+                    // If in the next recursion step there is no possible value to assign, backtrack to the last safe cell and set its value to zero
+                    grid[row, column].Value = 0;
+                    // When backtracking, restore earlier removed values from lists of possible values
+                    RestoreCellsValues(row, column, value);
+                }
+            }
+
+            return false; 
         }
 
-        private bool IsValidNumber(int x, int y, int value)
+        private bool IsValidNumber(int row, int column, int value)
         {
+            // Check if the value can be placed in the cell (row, column)
             for (int i = 0; i < 9; i++)
             {
-                if (i != y && grid[i, y].Value == value)
+                if (grid[row, i].Value == value || grid[i, column].Value == value)
                 {
                     return false;
                 }
             }
 
-            for (int j = 0; j < 9; ++j)
-            {
-                if (j != x && grid[x, j].Value == value)
-                {
-                    return false;
-                }
-            }
 
-            for (int i = x - (x % 3); i < x - (x % 3) + 3; i++)
+            // Check if the value can be placed in the cell (square 3x3)
+            int startRow = row - row % 3;
+            int startColumn = column - column % 3;
+
+            for (int i = startRow; i < startRow + 3; i++)
             {
-                for (int j = y - (y % 3); j < y - (y % 3) + 3; j++)
+                for (int j = startColumn; j < startColumn + 3; j++)
                 {
-                    if (i != x && j != y && grid[i, j].Value == value)
+                    if (grid[i, j].Value == value)
                     {
                         return false;
                     }
-
                 }
             }
 
             return true;
+        }
+
+        private void RestoreCellsValues(int row, int column, int value)
+        {
+            // Restore this value in the list of possible values of every cell in the same row and column.
+            for (int i = 0; i < 9; i++)
+            {
+                if (i != column)
+                {
+                    if (!grid[row, i].PossibleValues.Contains(value))
+                    {
+                        grid[row, i].PossibleValues.Add(value);
+                    }
+                }
+
+                if (i != row)
+                {
+                    if (!grid[i, column].PossibleValues.Contains(value))
+                    {
+                        grid[i, column].PossibleValues.Add(value);
+                    }
+                }
+            }
+
+            // Restore this value in the list of possible values of every cell in the same 3x3 square
+            int startRow = row - row % 3;
+            int startColumn = column - column % 3;
+
+            for (int i = startRow; i < startRow + 3; i++)
+            {
+                for (int j = startColumn; j < startColumn + 3; j++)
+                {
+                    if (i != row || j != column)
+                    {
+                        if (!grid[i, j].PossibleValues.Contains(value))
+                        {
+                            grid[i, j].PossibleValues.Add(value);
+                        }
+                    }
+                }
+            }
         }
     }
 }
