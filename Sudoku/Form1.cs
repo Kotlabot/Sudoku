@@ -10,12 +10,12 @@ namespace Sudoku
     {
         Cell[,] grid = new Cell[9, 9];
         Random randomValue = new Random();
+        int numberOfClues;
         
         public Form1()
         {
             InitializeComponent();
             CreateGrid();
-            GenerateNewGame();
         }
 
         private void CreateGrid()
@@ -70,6 +70,8 @@ namespace Sudoku
             FillDiagonalSquares();
 
             FillRestOfTheGrid(0, 0);
+
+            MakeRandomCluesVisible(numberOfClues);
               
         }
 
@@ -99,7 +101,7 @@ namespace Sudoku
                     index = randomValue.Next(0, possibleValues.Count - 1);
                     grid[row, column].Value = possibleValues[index];
                     //Storing value as a text in every cell just to make sure the grid loads right. Erase after final compilation.
-                    grid[row, column].Text = possibleValues[index].ToString();
+                    //grid[row, column].Text = possibleValues[index].ToString();
 
                     ReduceCellsValues(row, column, possibleValues[index]);
 
@@ -175,7 +177,7 @@ namespace Sudoku
                 if (IsValidNumber(row, column, value))
                 {
                     grid[row, column].Value = value;
-                    grid[row, column].Text = value.ToString();
+                    //grid[row, column].Text = value.ToString();
                     ReduceCellsValues(row, column, value);
 
                     if (FillRestOfTheGrid(row, column + 1))
@@ -263,5 +265,82 @@ namespace Sudoku
                 }
             }
         }
+
+        private void MakeRandomCluesVisible(int difficulty)
+        {
+            for(int i = 0; i < difficulty; i++)
+            {
+                int rowIndex = randomValue.Next(0, 8);
+                int columnIndex = randomValue.Next(0, 8);
+
+                if(grid[rowIndex, columnIndex].Text == string.Empty)
+                {
+                    grid[rowIndex, columnIndex].Text = grid[rowIndex, columnIndex].Value.ToString();
+                    continue;
+                }
+
+                i--;
+            }
+        }
+
+
+        /// <summary>
+        /// Gereates new Sudoku based on given difficulty (number of shown clues). If no difficulty is given, 
+        /// method generates random number of clues.
+        /// </summary>
+        
+        private void buttonGenerate_Click(object sender, EventArgs e)
+        {
+            string input = textBox1.Text;
+
+            if (input == "")
+            {
+                numberOfClues = randomValue.Next(20, 45);
+                GenerateNewGame();
+                return;
+            }
+
+            // If input contains non numeric character, throws error.
+            else if (!CheckForNonNumericString(input))
+            {
+                MessageBox.Show("Input difficulty contains non numeric character.");
+                return;
+            }
+
+            var newNumberOfClues = Convert.ToInt32(input);
+            // If difficulty is less than minimum boundary, throws error.
+            if (newNumberOfClues < 20)
+            {
+                MessageBox.Show("Minimum number of clues is 20. Less than 20 would be extremely hard.");
+            }
+
+            // If difficulty is more than maximum boundary, throws error.
+            else if (newNumberOfClues > 45)
+            {
+                MessageBox.Show("Maximum number of clues is 45. More than 45 would be extremely easy.");
+            }
+
+            // If the difficulty input is correct, generate new game with given number of clues.
+            else
+            {
+                numberOfClues = newNumberOfClues;
+                GenerateNewGame();
+            }
+        }
+        
+        /// <summary>
+        /// Method to check if input contains non numeric characters.
+        /// </summary>
+        private bool CheckForNonNumericString(string input)
+        {
+            foreach (char c in input)
+            {
+                if (!char.IsDigit(c))
+                    return false;
+            }
+            return true;
+        }
+
+
     }
 }
