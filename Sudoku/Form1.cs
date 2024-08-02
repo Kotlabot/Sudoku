@@ -44,7 +44,7 @@ namespace Sudoku
             if (int.TryParse(e.KeyChar.ToString(), out value))
             {
                 cell.Text = value.ToString();
-                cell.ForeColor = Color.Black;
+                cell.ForeColor = Color.DarkSlateGray;
             }
 
             //If pressed key is backspace, clear this cell
@@ -291,7 +291,7 @@ namespace Sudoku
         
         private void buttonGenerate_Click(object sender, EventArgs e)
         {
-            string input = textBox1.Text;
+            string input = difficultyInput.Text;
 
             if (input == "")
             {
@@ -315,10 +315,10 @@ namespace Sudoku
             }
 
             // If difficulty is more than maximum boundary, throws error.
-            else if (newNumberOfClues > 45)
-            {
-                MessageBox.Show("Maximum number of clues is 45. More than 45 would be extremely easy.");
-            }
+            //else if (newNumberOfClues > 45)
+            //{
+            //    MessageBox.Show("Maximum number of clues is 45. More than 45 would be extremely easy.");
+            //}
 
             // If the difficulty input is correct, generate new game with given number of clues.
             else
@@ -341,6 +341,63 @@ namespace Sudoku
             return true;
         }
 
+        /// <summary>
+        /// Method verifies if user filled Sudoku correctly
+        /// </summary>
+        private void buttonVerify_Click(object sender, EventArgs e)
+        {
+            int numberOfMistakes;
+            // When Sudoku is not filled properly, throws negative notification including number if mistakes made.
+            if (!VerifySudokuResult(out numberOfMistakes))
+            {
+                if(numberOfMistakes > 1)
+                {
+                    MessageBox.Show(string.Format("Solution is incorrect. There are {0} mistakes, which are highlated in red.", numberOfMistakes));
+                }
+                else
+                {
+                    MessageBox.Show(string.Format("Solution is incorrect. There is {0} mistake, which is highlated in red.", numberOfMistakes));
+                }
+            }
 
+            //If no mistakes were found and Sudoku is filled properly, throws positive notification.
+            else
+            {
+                MessageBox.Show("Congrats, you win!");
+            }
+        }
+
+        /// <summary>
+        /// Method verifies filled Sudoku grid by checking cell by cell cell's value as cell.Value and compare it to users input as cell.Text
+        /// </summary>
+        private bool VerifySudokuResult(out int numberOfMistakes)
+        {
+            int counter = 0;
+
+            for(int i = 0; i < 9; i++)
+            {
+                for(int j = 0; j < 9; j++)
+                {
+                    // If there is a misktake, highlight it in red color and increase counter of mistakes by 1.
+                    if (grid[i, j].Value.ToString() != grid[i, j].Text)
+                    {
+                        grid[i, j].ForeColor = Color.Red;
+                        counter++;
+                    }
+                }
+            }
+
+            numberOfMistakes = counter;
+
+            if(counter > 0)
+            {
+                return false;
+            }
+
+            else
+            {
+                return true;
+            }
+        }
     }
 }
