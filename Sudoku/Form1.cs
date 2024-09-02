@@ -67,6 +67,8 @@ namespace Sudoku
         {
             ClearGrid();
 
+            SetGridToDefault();
+
             FillDiagonalSquares();
 
             FillRestOfTheGrid(0, 0);
@@ -276,6 +278,7 @@ namespace Sudoku
                 if(grid[rowIndex, columnIndex].Text == string.Empty)
                 {
                     grid[rowIndex, columnIndex].Text = grid[rowIndex, columnIndex].Value.ToString();
+                    grid[rowIndex, columnIndex].ForeColor = Color.Black;
                     continue;
                 }
 
@@ -315,10 +318,10 @@ namespace Sudoku
             }
 
             // If difficulty is more than maximum boundary, throws error.
-            //else if (newNumberOfClues > 45)
-            //{
-            //    MessageBox.Show("Maximum number of clues is 45. More than 45 would be extremely easy.");
-            //}
+            else if (newNumberOfClues > 45)
+            {
+                MessageBox.Show("Maximum number of clues is 45. More than 45 would be extremely easy.");
+            }
 
             // If the difficulty input is correct, generate new game with given number of clues.
             else
@@ -398,6 +401,73 @@ namespace Sudoku
             {
                 return true;
             }
+        }
+
+        private void solveButton_Click(object sender, EventArgs e)
+        {
+            SetGridToDefault();
+            SetUsersInput();
+            FillRestOfTheGrid(0, 0);
+            MakeAllCellsVisible();
+        }
+
+        /// <summary>
+        /// Method to clear cells values and restore whole list of possible values
+        /// </summary>
+
+        private void SetGridToDefault()
+        {
+            foreach(var cell in grid)
+            {
+                cell.Value = 0;
+                cell.PossibleValues = new List<int>() { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
+            }
+        }
+
+        /// <summary>
+        /// Method to process users input of keys and store them as cells values
+        /// </summary>
+        private void SetUsersInput()
+        {
+            for(int i =0; i < 9; i++)
+            {
+                for(int j = 0;j < 9; j++)
+                {
+                    if (grid[i, j].Text != string.Empty)
+                    {
+                        grid[i, j].Value = Convert.ToInt32(grid[i, j].Text);
+                        // Reduce given keys from lists of possible values of other cells
+                        ReduceCellsValues(i, j, grid[i, j].Value);
+                    }
+                }
+            }
+        }
+
+        /// <summary>
+        /// When Sudoku puzzle is solved, make all numbers visible to the user.
+        /// </summary>
+        private void MakeAllCellsVisible()
+        {
+            for(int i = 0; i < 9; i++)
+            {
+                for(int j = 0; j < 9; j++)
+                {
+                    if (grid[i, j].Text == string.Empty)
+                    {
+                        grid[i, j].Text = Convert.ToString(grid[i, j].Value);
+                        // Make solved numbers white so user can see what keys were given from them and what keys were solved by computer.
+                        grid[i, j].ForeColor = Color.White;
+                    }
+                }
+            }
+        }
+
+        /// <summary>
+        /// Method to clear text in all cells, so user can input new puzzle to solve.
+        /// </summary>
+        private void buttonClearGrid_Click(object sender, EventArgs e)
+        {
+            ClearGrid();
         }
     }
 }
