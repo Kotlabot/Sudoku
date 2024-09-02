@@ -4,18 +4,20 @@ using System.Collections.Generic;
 
 namespace Sudoku
 {
-    class Cell : Button
+    public class Cell : Button
     {
         public int X { get; set; }
         public int Y { get; set; }
         public int Value { get; set; }
         public List<int> PossibleValues { get; set; }
+
+        
         /// <summary>
         /// Every cell is declared with Size, Location, Font and its style and size, FlatStyle and Flatappearance
         /// </summary>
         /// <param name="x"></ first cells coordinate>
         /// <param name="y"></ second cells coordinate>
-        public Cell(int row, int column, int value = 0)
+        public Cell(int row, int column, int value = 0, int count = 9)
         {
             X = column;
             Y = row;
@@ -31,9 +33,15 @@ namespace Sudoku
             PossibleValues = new List<int>() {1, 2, 3, 4, 5, 6, 7, 8, 9};
         }
 
-        public void ClearCell()
+        public void ClearText()
         {
             this.Text = string.Empty;
+        }
+
+        public void Reset()
+        {
+            Value = 0;
+            PossibleValues = new List<int>() { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
         }
 
         private void InitializeComponent()
