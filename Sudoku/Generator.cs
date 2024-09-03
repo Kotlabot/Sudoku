@@ -19,49 +19,11 @@ namespace Sudoku
         public Sudoku Generate()
         {
             ClearGrid();
-
             SetGridToDefault();
-
             FillDiagonalSquares();
-
-            for (int i = 0; i < sudoku.MaxValue; i++)
-            {
-                for (int j = 0; j < sudoku.MaxValue; j++)
-                {
-                    var value = sudoku.Grid[i, j].Value;
-                    var possiblevals = sudoku.Grid[i, j].PossibleValues;
-                }
-            }
-
             SudokuCore.FillRestOfTheGrid(sudoku, 0, 0);
-
             MakeRandomCluesVisible(numberOfClues);
-
-            for (int i = 0; i < sudoku.MaxValue; i++)
-            {
-                for (int j = 0; j < sudoku.MaxValue; j++)
-                {
-                    var value = sudoku.Grid[i, j].Value;
-                    var possiblevals = sudoku.Grid[i, j].PossibleValues;
-                }
-            }
             return sudoku;
-        }
-
-        private void print()
-        {
-            int i = 0;
-            foreach(var cell in sudoku.Grid)
-            {
-                i++;
-                if (i > sudoku.MaxValue)
-                {
-                    i = 0;
-                    Console.WriteLine();
-                }
-
-                Console.Write(cell.Value);
-            }
         }
 
         private void ClearGrid()
@@ -117,22 +79,18 @@ namespace Sudoku
                     //grid[row, column].Text = possibleValues[index].ToString();
 
                     SudokuCore.ReduceCellsValues(sudoku, row, column, possibleValues[index]);
-                    sudoku.Print(possibleValues[index]);
-
                     possibleValues.Remove(possibleValues[index]);
-
                     column++;
                 }
                 column = startColumn;
                 row++;
             }
-
-            print();
         }
 
         /// <summary>
         /// Method to reduce value that was placed in the grid from lists of possible values of cells in the same row, column and square 3x3
         /// </summary>
+        // TODO - komentare?
         public static bool IsPossibleToChoose(Sudoku sudoku, int row, int column, int value)
         {
             // Reduce this value in the list of possible values of every cell in the same row and column.

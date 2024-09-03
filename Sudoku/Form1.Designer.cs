@@ -37,6 +37,8 @@
             this.infoTextBoxSolver = new System.Windows.Forms.TextBox();
             this.solveButton = new System.Windows.Forms.Button();
             this.buttonClearGrid = new System.Windows.Forms.Button();
+            this.sudokuSize = new System.Windows.Forms.ComboBox();
+            this.infoTextBoxSize = new System.Windows.Forms.TextBox();
             infoTextBoxGenerator = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
@@ -45,7 +47,7 @@
             infoTextBoxGenerator.BackColor = System.Drawing.SystemColors.ButtonFace;
             infoTextBoxGenerator.BorderStyle = System.Windows.Forms.BorderStyle.None;
             infoTextBoxGenerator.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            infoTextBoxGenerator.Location = new System.Drawing.Point(474, 194);
+            infoTextBoxGenerator.Location = new System.Drawing.Point(474, 206);
             infoTextBoxGenerator.Multiline = true;
             infoTextBoxGenerator.Name = "infoTextBoxGenerator";
             infoTextBoxGenerator.RightToLeft = System.Windows.Forms.RightToLeft.No;
@@ -137,11 +139,44 @@
             this.buttonClearGrid.UseVisualStyleBackColor = true;
             this.buttonClearGrid.Click += new System.EventHandler(this.buttonClearGrid_Click);
             // 
+            // sudokuSize
+            // 
+            this.sudokuSize.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.sudokuSize.FormattingEnabled = true;
+            this.sudokuSize.Items.AddRange(new object[] {
+            "Sudoku 4 x 4",
+            "Sudoku 6 x 6",
+            "Sudoku 8 x 8",
+            "Sudoku 9 x 9",
+            "Sudoku 10 x 10",
+            "Sudoku 12 x 12",
+            "Sudoku 16 x 16"});
+            this.sudokuSize.Location = new System.Drawing.Point(474, 43);
+            this.sudokuSize.Name = "sudokuSize";
+            this.sudokuSize.Size = new System.Drawing.Size(121, 24);
+            this.sudokuSize.TabIndex = 10;
+            this.sudokuSize.Text = "Sudoku Size";
+            this.sudokuSize.SelectedIndexChanged += new System.EventHandler(this.sudokuSize_SelectedIndexChanged);
+            // 
+            // infoTextBoxSize
+            // 
+            this.infoTextBoxSize.BackColor = System.Drawing.SystemColors.ButtonFace;
+            this.infoTextBoxSize.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.infoTextBoxSize.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.infoTextBoxSize.Location = new System.Drawing.Point(474, 12);
+            this.infoTextBoxSize.Multiline = true;
+            this.infoTextBoxSize.Name = "infoTextBoxSize";
+            this.infoTextBoxSize.Size = new System.Drawing.Size(273, 25);
+            this.infoTextBoxSize.TabIndex = 11;
+            this.infoTextBoxSize.Text = "Please choose Sudoku size you want to play.";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(809, 470);
+            this.Controls.Add(this.infoTextBoxSize);
+            this.Controls.Add(this.sudokuSize);
             this.Controls.Add(this.buttonClearGrid);
             this.Controls.Add(this.solveButton);
             this.Controls.Add(this.infoTextBoxSolver);
@@ -168,6 +203,8 @@
         private System.Windows.Forms.TextBox infoTextBoxSolver;
         private System.Windows.Forms.Button solveButton;
         private System.Windows.Forms.Button buttonClearGrid;
+        private System.Windows.Forms.ComboBox sudokuSize;
+        private System.Windows.Forms.TextBox infoTextBoxSize;
     }
 }
 

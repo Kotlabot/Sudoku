@@ -4,6 +4,7 @@ using System;
 
 namespace Sudoku
 {
+    //TODO - komentare?
     public enum SudokuType
     {
         x4,
@@ -14,6 +15,8 @@ namespace Sudoku
         x12,
         x16
     }
+
+    //TODO - komentare?
     public class Sudoku
     {
         public SudokuType Type { get; private set; }
@@ -103,8 +106,8 @@ namespace Sudoku
                     MaxValue = 16;
                     SquareSizeX = 4;
                     SquareSizeY = 4;
-                    MinKeysCount = 82;
-                    MaxKeysCount = 155;
+                    MinKeysCount = 130;
+                    MaxKeysCount = 180;
                     break;
             }
 
@@ -128,6 +131,7 @@ namespace Sudoku
             }
         }
 
+        //TODO - komentare?
         public void Print(int value)
         {
             using (var sw = File.AppendText("output.txt"))

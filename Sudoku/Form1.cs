@@ -13,12 +13,12 @@ namespace Sudoku
         public Form1()
         {
             InitializeComponent();
-            CreateGrid();
+            //CreateGrid(SudokuType.x9);
         }
 
-        private void CreateGrid()
+        private void CreateGrid(SudokuType type)
         {
-            sudoku = new Sudoku(SudokuType.x9);
+            sudoku = new Sudoku(type);
             foreach (var cell in sudoku.Grid)
             {
                 Grid.Controls.Add(cell);
@@ -163,6 +163,45 @@ namespace Sudoku
         private void buttonClearGrid_Click(object sender, EventArgs e)
         {
             sudoku.ClearGridText();
+        }
+
+        private void sudokuSize_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            Grid.Controls.Clear();
+            if (sudokuSize.Text == "Sudoku 4 x 4")
+            {
+                CreateGrid(SudokuType.x4);
+            }
+
+            if (sudokuSize.Text == "Sudoku 6 x 6")
+            {
+                CreateGrid(SudokuType.x6);
+            }
+
+            if (sudokuSize.Text == "Sudoku 8 x 8")
+            {
+                CreateGrid(SudokuType.x8);
+            }
+
+            if (sudokuSize.Text == "Sudoku 9 x 9")
+            {
+                CreateGrid(SudokuType.x9);
+            }
+
+            if (sudokuSize.Text == "Sudoku 10 x 10")
+            {
+                CreateGrid(SudokuType.x10);
+            }
+
+            if (sudokuSize.Text == "Sudoku 12 x 12")
+            {
+                CreateGrid(SudokuType.x12);
+            }
+
+            if (sudokuSize.Text == "Sudoku 16 x 16")
+            {
+                CreateGrid(SudokuType.x16);
+            }
         }
     }
 }

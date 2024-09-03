@@ -15,7 +15,7 @@ namespace Sudoku
                 {
                     grid[i, j] = new Cell(possibleValues, i, j);
 
-                    //Make the squares 3x3 different colours
+                    //Make the sudoku squares different colours
                     grid[i, j].BackColor = ((i / squareY) + (j / squareX)) % 2 == 0 ? Color.LightSkyBlue : Color.CornflowerBlue;
 
                     grid[i, j].KeyPress += ChangeValue;

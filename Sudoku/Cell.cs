@@ -36,11 +36,13 @@ namespace Sudoku
             InitialValues = new List<int>(PossibleValues);
         }
 
+        //TODO - komentare?
         public void SetText(int value)
         {
             this.Text = GetText(value);
         }
 
+        //TODO - komentare?
         public string GetText(int value)
         {
             if (value > 9)
@@ -65,8 +67,9 @@ namespace Sudoku
             }
 
             return value.ToString();
-        } 
+        }
 
+        //TODO - komentare?
         public int GetFromText()
         {
             switch (this.Text)
