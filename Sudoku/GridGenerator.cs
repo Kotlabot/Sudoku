@@ -1,46 +1,28 @@
-﻿using System.Drawing;
+﻿using System.Collections.Generic;
+using System.Drawing;
 using System.Windows.Forms;
 
 namespace Sudoku
 {
     internal class GridGenerator
     {
-        public static Cell[,] CreateGrid9x9()
+        public static Cell[,] CreateGrid(List<int> possibleValues, int size, int squareX, int squareY)
         {
-            Cell[,] grid = new Cell[9, 9];
-            for (int i = 0; i < 9; i++)
+            Cell[,] grid = new Cell[size, size];
+            for (int i = 0; i < size; i++)
             {
-                for (int j = 0; j < 9; j++)
+                for (int j = 0; j < size; j++)
                 {
-                    grid[i, j] = new Cell(i, j);
+                    grid[i, j] = new Cell(possibleValues, i, j);
 
                     //Make the squares 3x3 different colours
-                    grid[i, j].BackColor = ((i / 3) + (j / 3)) % 2 == 0 ? Color.LightSkyBlue : Color.CornflowerBlue;
+                    grid[i, j].BackColor = ((i / squareY) + (j / squareX)) % 2 == 0 ? Color.LightSkyBlue : Color.CornflowerBlue;
 
                     grid[i, j].KeyPress += ChangeValue;
                 }
             }
             return grid;
         }
-
-        //public static Cell[,] CreateGrid4x4()
-        //{
-        //    Cell[,] grid = new Cell[4, 4];
-        //    for (int i = 0; i < 4; i++)
-        //    {
-        //        for (int j = 0; j < 4; j++)
-        //        {
-        //            grid[i, j] = new Cell(i, j);
-
-        //            //Make the squares 3x3 different colours
-        //            grid[i, j].BackColor = ((i / 2) + (j / 2)) % 2 == 0 ? Color.LightSkyBlue : Color.CornflowerBlue;
-
-        //            grid[i, j].KeyPress += ChangeValue;
-        //        }
-        //    }
-        //    return grid;
-        //}
-
         private static void ChangeValue(object sender, KeyPressEventArgs e)
         {
             var cell = sender as Cell;

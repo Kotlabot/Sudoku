@@ -5,18 +5,18 @@ namespace Sudoku
 {
     public class Solver
     {
-        private Cell[,] grid;
+        private Sudoku sudoku;
 
-        public Solver(Cell[,] grid) 
+        public Solver(Sudoku sudoku) 
         {
-            this.grid = grid;
+            this.sudoku = sudoku;
         }
 
         public void Solve()
         {
             SetGridToDefault();
             SetUsersInput();
-            SudokuCore.FillRestOfTheGrid(grid, 0, 0);
+            SudokuCore.FillRestOfTheGrid(sudoku, 0, 0);
             MakeAllCellsVisible();
         }
 
@@ -26,10 +26,7 @@ namespace Sudoku
 
         private void SetGridToDefault()
         {
-            foreach (var cell in grid)
-            {
-                cell.Reset();
-            }
+            sudoku.ClearGrid();
         }
 
         /// <summary>
@@ -37,15 +34,15 @@ namespace Sudoku
         /// </summary>
         private void SetUsersInput()
         {
-            for (int i = 0; i < 9; i++)
+            for (int i = 0; i < sudoku.MaxValue; i++)
             {
-                for (int j = 0; j < 9; j++)
+                for (int j = 0; j < sudoku.MaxValue; j++)
                 {
-                    if (grid[i, j].Text != string.Empty)
+                    if (sudoku.Grid[i, j].Text != string.Empty)
                     {
-                        grid[i, j].Value = Convert.ToInt32(grid[i, j].Text);
+                        sudoku.Grid[i, j].Value = sudoku.Grid[i, j].GetFromText();
                         // Reduce given keys from lists of possible values of other cells
-                        SudokuCore.ReduceCellsValues(grid, i, j, grid[i, j].Value);
+                        SudokuCore.ReduceCellsValues(sudoku, i, j, sudoku.Grid[i, j].Value);
                     }
                 }
             }
@@ -56,15 +53,15 @@ namespace Sudoku
         /// </summary>
         private void MakeAllCellsVisible()
         {
-            for (int i = 0; i < 9; i++)
+            for (int i = 0; i < sudoku.MaxValue; i++)
             {
-                for (int j = 0; j < 9; j++)
+                for (int j = 0; j < sudoku.MaxValue; j++)
                 {
-                    if (grid[i, j].Text == string.Empty)
+                    if (sudoku.Grid[i, j].Text == string.Empty)
                     {
-                        grid[i, j].Text = Convert.ToString(grid[i, j].Value);
+                        sudoku.Grid[i, j].SetText(sudoku.Grid[i, j].Value);
                         // Make solved numbers white so user can see what keys were given from them and what keys were solved by computer.
-                        grid[i, j].ForeColor = Color.White;
+                        sudoku.Grid[i, j].ForeColor = Color.White;
                     }
                 }
             }

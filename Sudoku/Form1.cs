@@ -1,14 +1,12 @@
 ﻿using System.Drawing;
 using System.Windows.Forms;
-using System.Collections.Generic;
 using System;
-using System.Data.Common;
 
 namespace Sudoku
 {
     public partial class Form1 : Form
     {
-        Cell[,] grid;
+        Sudoku sudoku;
         Random randomValue = new Random();
         int numberOfClues;
         
@@ -20,8 +18,8 @@ namespace Sudoku
 
         private void CreateGrid()
         {
-            grid = GridGenerator.CreateGrid9x9();
-            foreach (var cell in grid)
+            sudoku = new Sudoku(SudokuType.x9);
+            foreach (var cell in sudoku.Grid)
             {
                 Grid.Controls.Add(cell);
             }
@@ -29,8 +27,8 @@ namespace Sudoku
 
         private void GenerateNewGame()
         {
-            var generator = new Generator(grid, numberOfClues);
-            grid = generator.Generate();  
+            var generator = new Generator(sudoku, numberOfClues);
+            generator.Generate();  
         }
 
         /// <summary>
@@ -44,7 +42,7 @@ namespace Sudoku
 
             if (input == "")
             {
-                numberOfClues = randomValue.Next(20, 45);
+                numberOfClues = randomValue.Next(sudoku.MinKeysCount, sudoku.MaxKeysCount);
                 GenerateNewGame();
                 return;
             }
@@ -58,15 +56,15 @@ namespace Sudoku
 
             var newNumberOfClues = Convert.ToInt32(input);
             // If difficulty is less than minimum boundary, throws error.
-            if (newNumberOfClues < 20)
+            if (newNumberOfClues < sudoku.MinKeysCount)
             {
-                MessageBox.Show("Minimum number of clues is 20. Less than 20 would be extremely hard.");
+                MessageBox.Show($"Minimum number of clues is {sudoku.MinKeysCount}. Less than {sudoku.MinKeysCount} would be extremely hard.");
             }
 
             // If difficulty is more than maximum boundary, throws error.
-            else if (newNumberOfClues > 45)
+            else if (newNumberOfClues > sudoku.MaxKeysCount)
             {
-                MessageBox.Show("Maximum number of clues is 45. More than 45 would be extremely easy.");
+                MessageBox.Show($"Maximum number of clues is {sudoku.MaxKeysCount}. More than {sudoku.MaxKeysCount} would be extremely easy.");
             }
 
             // If the difficulty input is correct, generate new game with given number of clues.
@@ -123,14 +121,14 @@ namespace Sudoku
         {
             int counter = 0;
 
-            for(int i = 0; i < 9; i++)
+            for(int i = 0; i < sudoku.MaxValue; i++)
             {
-                for(int j = 0; j < 9; j++)
+                for(int j = 0; j < sudoku.MaxValue; j++)
                 {
                     // If there is a misktake, highlight it in red color and increase counter of mistakes by 1.
-                    if (grid[i, j].Value.ToString() != grid[i, j].Text)
+                    if (sudoku.Grid[i, j].GetText(sudoku.Grid[i, j].Value) != sudoku.Grid[i, j].Text)
                     {
-                        grid[i, j].ForeColor = Color.Red;
+                        sudoku.Grid[i, j].ForeColor = Color.Red;
                         counter++;
                     }
                 }
@@ -149,9 +147,13 @@ namespace Sudoku
             }
         }
 
+        /// <summary>
+        /// Method to trigger Sudoku Solver when user press "Solve!" button
+        /// </summary>
+
         private void solveButton_Click(object sender, EventArgs e)
         {
-            var solver = new Solver(grid);
+            var solver = new Solver(sudoku);
             solver.Solve();
         }
 
@@ -160,10 +162,7 @@ namespace Sudoku
         /// </summary>
         private void buttonClearGrid_Click(object sender, EventArgs e)
         {
-            foreach(var cell in grid)
-            {
-                cell.ClearText();
-            }
+            sudoku.ClearGridText();
         }
     }
 }

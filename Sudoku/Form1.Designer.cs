@@ -36,7 +36,6 @@
             this.buttonVerify = new System.Windows.Forms.Button();
             this.infoTextBoxSolver = new System.Windows.Forms.TextBox();
             this.solveButton = new System.Windows.Forms.Button();
-            this.infoTextBoxDifficulty = new System.Windows.Forms.TextBox();
             this.buttonClearGrid = new System.Windows.Forms.Button();
             infoTextBoxGenerator = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
@@ -46,7 +45,7 @@
             infoTextBoxGenerator.BackColor = System.Drawing.SystemColors.ButtonFace;
             infoTextBoxGenerator.BorderStyle = System.Windows.Forms.BorderStyle.None;
             infoTextBoxGenerator.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            infoTextBoxGenerator.Location = new System.Drawing.Point(474, 12);
+            infoTextBoxGenerator.Location = new System.Drawing.Point(474, 194);
             infoTextBoxGenerator.Multiline = true;
             infoTextBoxGenerator.Name = "infoTextBoxGenerator";
             infoTextBoxGenerator.RightToLeft = System.Windows.Forms.RightToLeft.No;
@@ -67,7 +66,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(471, 147);
+            this.label1.Location = new System.Drawing.Point(471, 279);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(59, 16);
             this.label1.TabIndex = 1;
@@ -75,7 +74,7 @@
             // 
             // difficultyInput
             // 
-            this.difficultyInput.Location = new System.Drawing.Point(536, 147);
+            this.difficultyInput.Location = new System.Drawing.Point(536, 279);
             this.difficultyInput.Name = "difficultyInput";
             this.difficultyInput.Size = new System.Drawing.Size(34, 20);
             this.difficultyInput.TabIndex = 2;
@@ -83,7 +82,7 @@
             // buttonGenerate
             // 
             this.buttonGenerate.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonGenerate.Location = new System.Drawing.Point(590, 141);
+            this.buttonGenerate.Location = new System.Drawing.Point(590, 273);
             this.buttonGenerate.Name = "buttonGenerate";
             this.buttonGenerate.Size = new System.Drawing.Size(75, 31);
             this.buttonGenerate.TabIndex = 3;
@@ -94,7 +93,7 @@
             // buttonVerify
             // 
             this.buttonVerify.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonVerify.Location = new System.Drawing.Point(683, 141);
+            this.buttonVerify.Location = new System.Drawing.Point(683, 273);
             this.buttonVerify.Name = "buttonVerify";
             this.buttonVerify.Size = new System.Drawing.Size(75, 31);
             this.buttonVerify.TabIndex = 4;
@@ -107,7 +106,7 @@
             this.infoTextBoxSolver.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.infoTextBoxSolver.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.infoTextBoxSolver.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.infoTextBoxSolver.Location = new System.Drawing.Point(474, 278);
+            this.infoTextBoxSolver.Location = new System.Drawing.Point(474, 325);
             this.infoTextBoxSolver.Multiline = true;
             this.infoTextBoxSolver.Name = "infoTextBoxSolver";
             this.infoTextBoxSolver.Size = new System.Drawing.Size(284, 74);
@@ -119,7 +118,7 @@
             // solveButton
             // 
             this.solveButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.solveButton.Location = new System.Drawing.Point(474, 368);
+            this.solveButton.Location = new System.Drawing.Point(474, 407);
             this.solveButton.Name = "solveButton";
             this.solveButton.Size = new System.Drawing.Size(75, 31);
             this.solveButton.TabIndex = 7;
@@ -127,23 +126,10 @@
             this.solveButton.UseVisualStyleBackColor = true;
             this.solveButton.Click += new System.EventHandler(this.solveButton_Click);
             // 
-            // infoTextBoxDifficulty
-            // 
-            this.infoTextBoxDifficulty.BackColor = System.Drawing.SystemColors.ButtonFace;
-            this.infoTextBoxDifficulty.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.infoTextBoxDifficulty.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.infoTextBoxDifficulty.Location = new System.Drawing.Point(474, 89);
-            this.infoTextBoxDifficulty.Multiline = true;
-            this.infoTextBoxDifficulty.Name = "infoTextBoxDifficulty";
-            this.infoTextBoxDifficulty.Size = new System.Drawing.Size(307, 40);
-            this.infoTextBoxDifficulty.TabIndex = 8;
-            this.infoTextBoxDifficulty.Text = "The minimum possible number of keys is 20 and the maximum is 45. Please enter dif" +
-    "ficulty in this range.";
-            // 
             // buttonClearGrid
             // 
             this.buttonClearGrid.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonClearGrid.Location = new System.Drawing.Point(587, 368);
+            this.buttonClearGrid.Location = new System.Drawing.Point(587, 405);
             this.buttonClearGrid.Name = "buttonClearGrid";
             this.buttonClearGrid.Size = new System.Drawing.Size(78, 33);
             this.buttonClearGrid.TabIndex = 9;
@@ -157,7 +143,6 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
             this.Controls.Add(this.buttonClearGrid);
-            this.Controls.Add(this.infoTextBoxDifficulty);
             this.Controls.Add(this.solveButton);
             this.Controls.Add(this.infoTextBoxSolver);
             this.Controls.Add(infoTextBoxGenerator);
@@ -182,7 +167,6 @@
         private System.Windows.Forms.Button buttonVerify;
         private System.Windows.Forms.TextBox infoTextBoxSolver;
         private System.Windows.Forms.Button solveButton;
-        private System.Windows.Forms.TextBox infoTextBoxDifficulty;
         private System.Windows.Forms.Button buttonClearGrid;
     }
 }
