@@ -6,14 +6,14 @@ namespace Sudoku
 {
     internal class GridGenerator
     {
-        public static Cell[,] CreateGrid(List<int> possibleValues, int size, int squareX, int squareY)
+        public static Cell[,] CreateGrid(List<int> possibleValues, int size, int squareX, int squareY, int cellsize, int font)
         {
             Cell[,] grid = new Cell[size, size];
             for (int i = 0; i < size; i++)
             {
                 for (int j = 0; j < size; j++)
                 {
-                    grid[i, j] = new Cell(possibleValues, i, j);
+                    grid[i, j] = new Cell(possibleValues, i, j, cellsize, font);
 
                     //Make the sudoku squares different colours
                     grid[i, j].BackColor = ((i / squareY) + (j / squareX)) % 2 == 0 ? Color.LightSkyBlue : Color.CornflowerBlue;

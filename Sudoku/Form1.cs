@@ -1,6 +1,7 @@
 ﻿using System.Drawing;
 using System.Windows.Forms;
 using System;
+using System.Linq;
 
 namespace Sudoku
 {
@@ -9,11 +10,12 @@ namespace Sudoku
         Sudoku sudoku;
         Random randomValue = new Random();
         int numberOfClues;
+        bool isSelectedInternally;
         
         public Form1()
         {
             InitializeComponent();
-            //CreateGrid(SudokuType.x9);
+            CreateGrid(SudokuType.x9);
         }
 
         private void CreateGrid(SudokuType type)
@@ -99,11 +101,11 @@ namespace Sudoku
             {
                 if(numberOfMistakes > 1)
                 {
-                    MessageBox.Show(string.Format("Solution is incorrect. There are {0} mistakes, which are highlated in red.", numberOfMistakes));
+                    MessageBox.Show(string.Format("Solution is incorrect. There are {0} mistakes, which are highlated in red, or empty spaces.", numberOfMistakes));
                 }
                 else
                 {
-                    MessageBox.Show(string.Format("Solution is incorrect. There is {0} mistake, which is highlated in red.", numberOfMistakes));
+                    MessageBox.Show(string.Format("Solution is incorrect. There is {0} mistake, which is highlated in red, or empty space.", numberOfMistakes));
                 }
             }
 
@@ -165,42 +167,101 @@ namespace Sudoku
             sudoku.ClearGridText();
         }
 
+        /// <summary>
+        /// Method to change sudoku type when user choose different size in ComboBox.
+        /// </summary>
         private void sudokuSize_SelectedIndexChanged(object sender, EventArgs e)
         {
+            //If ComboBox value was changed because of loading sudoku from a text file, dont generate new grid.
+            if (isSelectedInternally)
+            {
+                isSelectedInternally = false;
+                return;
+            }
+
             Grid.Controls.Clear();
-            if (sudokuSize.Text == "Sudoku 4 x 4")
+            switch(sudokuSize.Text) 
             {
-                CreateGrid(SudokuType.x4);
+                case "Sudoku 4 x 4":
+                    CreateGrid(SudokuType.x4);
+                    break;
+                case "Sudoku 6 x 6":
+                    CreateGrid(SudokuType.x6);
+                    break;
+                case "Sudoku 8 x 8":
+                    CreateGrid(SudokuType.x8);
+                    break;
+                case "Sudoku 9 x 9":
+                    CreateGrid(SudokuType.x9);
+                    break;
+                case "Sudoku 10 x 10":
+                    CreateGrid(SudokuType.x10);
+                    break;
+                case "Sudoku 12 x 12":
+                    CreateGrid(SudokuType.x12);
+                    break;
+                case "Sudoku 16 x 16":
+                    CreateGrid(SudokuType.x16);
+                    break;
             }
+        }
 
-            if (sudokuSize.Text == "Sudoku 6 x 6")
+        /// <summary>
+        /// Method to set right value in ComboBox "sudokuSize" when loading sudoku grid from text file.
+        /// </summary>
+        private void SetSelector(Sudoku sudoku)
+        {
+            isSelectedInternally = true;
+            switch (sudoku.Type)
             {
-                CreateGrid(SudokuType.x6);
+                case SudokuType.x4:
+                    sudokuSize.SelectedIndex = 0;
+                    break;
+                case SudokuType.x6:
+                    sudokuSize.SelectedIndex = 1;
+                    break;
+                case SudokuType.x8:
+                    sudokuSize.SelectedIndex = 2;
+                    break;
+                case SudokuType.x9:
+                    sudokuSize.SelectedIndex = 3;
+                    break;
+                case SudokuType.x10:
+                    sudokuSize.SelectedIndex = 4;
+                    break;
+                case SudokuType.x12:
+                    sudokuSize.SelectedIndex = 5;
+                    break;
+                case SudokuType.x16:
+                    sudokuSize.SelectedIndex = 6;
+                    break;
             }
+        }
 
-            if (sudokuSize.Text == "Sudoku 8 x 8")
-            {
-                CreateGrid(SudokuType.x8);
-            }
+        /// <summary>
+        /// Method to save Sudoku grid as text file.
+        /// </summary>
+        private void saveButton_Click(object sender, EventArgs e)
+        {
+            sudoku.SaveSudoku();
+        }
 
-            if (sudokuSize.Text == "Sudoku 9 x 9")
-            {
-                CreateGrid(SudokuType.x9);
-            }
+        /// <summary>
+        /// Method to load Sudoku grid from text file.
+        /// </summary>
+        private void loadButton_Click(object sender, EventArgs e)
+        {
+            Grid.Controls.Clear();
 
-            if (sudokuSize.Text == "Sudoku 10 x 10")
+            var loaded = Sudoku.LoadSudoku();
+            if (loaded != null)
             {
-                CreateGrid(SudokuType.x10);
-            }
-
-            if (sudokuSize.Text == "Sudoku 12 x 12")
-            {
-                CreateGrid(SudokuType.x12);
-            }
-
-            if (sudokuSize.Text == "Sudoku 16 x 16")
-            {
-                CreateGrid(SudokuType.x16);
+                sudoku = loaded;
+                foreach (var cell in sudoku.Grid)
+                {
+                    Grid.Controls.Add(cell);
+                }
+                SetSelector(sudoku);
             }
         }
     }

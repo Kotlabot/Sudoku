@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Windows.Forms;
 
 namespace Sudoku
 {
@@ -37,7 +38,7 @@ namespace Sudoku
         }
 
         /// <summary>
-        /// Filling diagonal squares 3x3, starting with cell [0, 0], [3, 3] and [6, 6]
+        /// Filling diagonal squares, starting with cell [0, 0]
         /// </summary>
         private void FillDiagonalSquares()
         {
@@ -51,7 +52,7 @@ namespace Sudoku
 
         private void FillOneSquare(int row, int column)
         {
-            //Make list of possible values for a cell, from which we step by step remove used values
+            //Make list of possible values for a cell, from which we step by step remove used values.
             List<int> possibleValues = sudoku.PossibleValues;
             int index;
             int startColumn = column;
@@ -60,23 +61,26 @@ namespace Sudoku
             {
                 for (int j = 0; j < sudoku.SquareSizeX; j++)
                 {
-                    //randomValue pics one index from defined range, number on that index of a list possibleNumbers is than assigned to cell as a cell.Value
+                    //randomValue pics one index from defined range, number on that index of a list possibleNumbers is than assigned to cell as a cell.Value.
                     index = randomValue.Next(0, possibleValues.Count - 1);
                     var backupIndex = 0;
                     while (!IsPossibleToChoose(sudoku, row, column, possibleValues[index]))
                     {
+                        //If there are some values left, try other value.
                         if (backupIndex != index)
                             index = backupIndex;
                         
                         backupIndex++;
 
+                        //If there are no values left to try, throw error message and return.
                         if (backupIndex == possibleValues.Count)
+                        {
+                            MessageBox.Show("Generating failed. Try again.");
                             return;
+                        }
                     }
 
                     sudoku.Grid[row, column].Value = possibleValues[index];
-                    //Storing value as a text in every cell just to make sure the grid loads right. Erase after final compilation.
-                    //grid[row, column].Text = possibleValues[index].ToString();
 
                     SudokuCore.ReduceCellsValues(sudoku, row, column, possibleValues[index]);
                     possibleValues.Remove(possibleValues[index]);
@@ -88,12 +92,11 @@ namespace Sudoku
         }
 
         /// <summary>
-        /// Method to reduce value that was placed in the grid from lists of possible values of cells in the same row, column and square 3x3
+        /// Method to check if filling diagonal squares does not lead to reducing all possible values from some cells. 
         /// </summary>
-        // TODO - komentare?
         public static bool IsPossibleToChoose(Sudoku sudoku, int row, int column, int value)
         {
-            // Reduce this value in the list of possible values of every cell in the same row and column.
+            // If setting a value leads to situation that any cell in the same row or column has no possible numbers left, return false and try different value.
             for (int i = 0; i < sudoku.MaxValue; i++)
             {
                 if (i != column)
@@ -111,7 +114,7 @@ namespace Sudoku
                 }
             }
 
-            // Reduce this value in the list of possible values of every cell in the same 3x3 square
+            // If setting a value leads to situation that any cell in the same square has no possible numbers left, return false and try different value.
             int startRow = row - row % sudoku.SquareSizeY;
             int startCol = column - column % sudoku.SquareSizeX;
 

@@ -9,19 +9,19 @@ namespace Sudoku
         /// </summary>
         public static bool FillRestOfTheGrid(Sudoku sudoku, int row, int column)
         {
-            // If row index is equal to or more than 9, whole grid is filled
+            // If row index is equal to or more than sudoku dimension, whole grid is filled
             if (row >= sudoku.MaxValue)
             {
                 return true;
             }
 
-            // If column index is equal to or more than 9, move to the next row and set column to zero
+            // If column index is equal to or more than sudoku dimension, move to the next row and set column to zero
             if (column >= sudoku.MaxValue)
             {
                 return FillRestOfTheGrid(sudoku, row + 1, 0);
             }
 
-            // If a cell is already filled (earlier filled diagonal 3x3 squares), move to the next column
+            // If a cell is already filled (earlier filled diagonal squares), move to the next column
             if (sudoku.Grid[row, column].Value != 0)
             {
                 return FillRestOfTheGrid(sudoku, row, column + 1);
@@ -54,7 +54,7 @@ namespace Sudoku
         }
 
         /// <summary>
-        /// Method to reduce value that was placed in the grid from lists of possible values of cells in the same row, column and square 3x3
+        /// Method to reduce value that was placed in the grid from lists of possible values of cells in the same row, column and square 
         /// </summary>
         public static void ReduceCellsValues(Sudoku sudoku, int row, int column, int value)
         {
@@ -72,7 +72,7 @@ namespace Sudoku
                 }
             }
 
-            // Reduce this value in the list of possible values of every cell in the same 3x3 square
+            // Reduce this value in the list of possible values of every cell in the same square
             int startRow = row - row % sudoku.SquareSizeY;
             int startCol = column - column % sudoku.SquareSizeX;
 
@@ -89,7 +89,7 @@ namespace Sudoku
         }
 
         /// <summary>
-        /// Method to check if number to be placed is not in the same row, column or square 3x3
+        /// Method to check if number to be placed is not in the same row, column or square
         /// </summary>
         private static bool IsValidNumber(Sudoku sudoku, int row, int column, int value)
         {
@@ -103,7 +103,7 @@ namespace Sudoku
             }
 
 
-            // Check if the value can be placed in the cell (square 3x3)
+            // Check if the value can be placed in the cell (square)
             int startRow = row - row % sudoku.SquareSizeY;
             int startColumn = column - column % sudoku.SquareSizeX;
 
@@ -122,7 +122,7 @@ namespace Sudoku
         }
 
         /// <summary>
-        /// Method to restore value that was missplaced in the grid to lists of possible values of cells in the same row, column and square 3x3
+        /// Method to restore value that was missplaced in the grid to lists of possible values of cells in the same row, column and square
         /// </summary>
         /// 
         private static void RestoreCellsValues(Sudoku sudoku, int row, int column, int value)
@@ -147,7 +147,7 @@ namespace Sudoku
                 }
             }
 
-            // Restore this value in the list of possible values of every cell in the same 3x3 square
+            // Restore this value in the list of possible values of every cell in the same square
             int startRow = row - row % sudoku.SquareSizeY;
             int startColumn = column - column % sudoku.SquareSizeX;
 

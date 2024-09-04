@@ -39,6 +39,8 @@
             this.buttonClearGrid = new System.Windows.Forms.Button();
             this.sudokuSize = new System.Windows.Forms.ComboBox();
             this.infoTextBoxSize = new System.Windows.Forms.TextBox();
+            this.saveButton = new System.Windows.Forms.Button();
+            this.loadButton = new System.Windows.Forms.Button();
             infoTextBoxGenerator = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
@@ -86,7 +88,7 @@
             this.buttonGenerate.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.buttonGenerate.Location = new System.Drawing.Point(590, 273);
             this.buttonGenerate.Name = "buttonGenerate";
-            this.buttonGenerate.Size = new System.Drawing.Size(75, 31);
+            this.buttonGenerate.Size = new System.Drawing.Size(78, 33);
             this.buttonGenerate.TabIndex = 3;
             this.buttonGenerate.Text = "Generate!";
             this.buttonGenerate.UseVisualStyleBackColor = true;
@@ -95,9 +97,9 @@
             // buttonVerify
             // 
             this.buttonVerify.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonVerify.Location = new System.Drawing.Point(683, 273);
+            this.buttonVerify.Location = new System.Drawing.Point(674, 273);
             this.buttonVerify.Name = "buttonVerify";
-            this.buttonVerify.Size = new System.Drawing.Size(75, 31);
+            this.buttonVerify.Size = new System.Drawing.Size(78, 33);
             this.buttonVerify.TabIndex = 4;
             this.buttonVerify.Text = "Verify!";
             this.buttonVerify.UseVisualStyleBackColor = true;
@@ -122,7 +124,7 @@
             this.solveButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.solveButton.Location = new System.Drawing.Point(474, 407);
             this.solveButton.Name = "solveButton";
-            this.solveButton.Size = new System.Drawing.Size(75, 31);
+            this.solveButton.Size = new System.Drawing.Size(78, 33);
             this.solveButton.TabIndex = 7;
             this.solveButton.Text = "Solve!";
             this.solveButton.UseVisualStyleBackColor = true;
@@ -131,7 +133,7 @@
             // buttonClearGrid
             // 
             this.buttonClearGrid.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonClearGrid.Location = new System.Drawing.Point(587, 405);
+            this.buttonClearGrid.Location = new System.Drawing.Point(558, 407);
             this.buttonClearGrid.Name = "buttonClearGrid";
             this.buttonClearGrid.Size = new System.Drawing.Size(78, 33);
             this.buttonClearGrid.TabIndex = 9;
@@ -170,11 +172,35 @@
             this.infoTextBoxSize.TabIndex = 11;
             this.infoTextBoxSize.Text = "Please choose Sudoku size you want to play.";
             // 
+            // saveButton
+            // 
+            this.saveButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.saveButton.Location = new System.Drawing.Point(618, 38);
+            this.saveButton.Name = "saveButton";
+            this.saveButton.Size = new System.Drawing.Size(78, 33);
+            this.saveButton.TabIndex = 12;
+            this.saveButton.Text = "Save!";
+            this.saveButton.UseVisualStyleBackColor = true;
+            this.saveButton.Click += new System.EventHandler(this.saveButton_Click);
+            // 
+            // loadButton
+            // 
+            this.loadButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.loadButton.Location = new System.Drawing.Point(710, 38);
+            this.loadButton.Name = "loadButton";
+            this.loadButton.Size = new System.Drawing.Size(78, 33);
+            this.loadButton.TabIndex = 13;
+            this.loadButton.Text = "Load!";
+            this.loadButton.UseVisualStyleBackColor = true;
+            this.loadButton.Click += new System.EventHandler(this.loadButton_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(809, 470);
+            this.ClientSize = new System.Drawing.Size(809, 472);
+            this.Controls.Add(this.loadButton);
+            this.Controls.Add(this.saveButton);
             this.Controls.Add(this.infoTextBoxSize);
             this.Controls.Add(this.sudokuSize);
             this.Controls.Add(this.buttonClearGrid);
@@ -205,6 +231,8 @@
         private System.Windows.Forms.Button buttonClearGrid;
         private System.Windows.Forms.ComboBox sudokuSize;
         private System.Windows.Forms.TextBox infoTextBoxSize;
+        private System.Windows.Forms.Button saveButton;
+        private System.Windows.Forms.Button loadButton;
     }
 }
 

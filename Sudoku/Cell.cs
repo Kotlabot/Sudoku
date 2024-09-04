@@ -15,19 +15,19 @@ namespace Sudoku
         private List<int> InitialValues { get; set; }
         
         /// <summary>
-        /// Every cell is declared with Size, Location, Font and its style and size, FlatStyle and Flatappearance
+        /// Every cell is declared with Size, Location, Font and its style and size, FlatStyle and Flatappearance.
         /// </summary>
         /// <param name="x"></ first cells coordinate>
         /// <param name="y"></ second cells coordinate>
-        public Cell(List<int> possibleValues, int row, int column, int value = 0)
+        public Cell(List<int> possibleValues, int row, int column, int size, int font, int value = 0)
         {
             X = column;
             Y = row;
             Value = value;
             
-            Size = new Size(45, 45);
-            Location = new Point(X * 45, Y * 45);
-            Font = new Font("Arial", 23, FontStyle.Bold);
+            Size = new Size(size, size);
+            Location = new Point(X * size, Y * size);
+            Font = new Font("Arial", font, FontStyle.Bold);
             ForeColor = Color.Black;
             FlatStyle = FlatStyle.Flat;
             FlatAppearance.BorderColor = Color.Black;
@@ -36,13 +36,19 @@ namespace Sudoku
             InitialValues = new List<int>(PossibleValues);
         }
 
-        //TODO - komentare?
+        /// <summary>
+        /// Method to display values assigned to the cells as text that user can see.
+        /// </summary>
         public void SetText(int value)
         {
             this.Text = GetText(value);
         }
 
-        //TODO - komentare?
+        /// <summary>
+        /// In Sudoku grids 10x10 or larger we need to display numbers as letters of alphabet, but its plainer to work with numbers in the backtracking method.
+        /// Method converts numbers to letters.
+        /// </summary>
+
         public string GetText(int value)
         {
             if (value > 9)
@@ -69,7 +75,9 @@ namespace Sudoku
             return value.ToString();
         }
 
-        //TODO - komentare?
+        /// <summary>
+        /// Method does the opposite of GetText(), it converts letters to numbers.
+        /// </summary>
         public int GetFromText()
         {
             switch (this.Text)
