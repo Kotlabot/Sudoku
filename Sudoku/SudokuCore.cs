@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Windows.Forms;
 
 namespace Sudoku
 {
@@ -35,7 +36,6 @@ namespace Sudoku
                 if (IsValidNumber(sudoku, row, column, value))
                 {
                     sudoku.Grid[row, column].Value = value;
-                    //grid[row, column].Text = value.ToString();
                     ReduceCellsValues(sudoku, row, column, value);
 
                     if (FillRestOfTheGrid(sudoku, row, column + 1))
@@ -91,8 +91,12 @@ namespace Sudoku
         /// <summary>
         /// Method to check if number to be placed is not in the same row, column or square
         /// </summary>
-        private static bool IsValidNumber(Sudoku sudoku, int row, int column, int value)
+        public static bool IsValidNumber(Sudoku sudoku, int row, int column, int value)
         {
+            if(value > sudoku.MaxValue)
+            {
+                return false;
+            }
             // Check if the value can be placed in the cell (row, column)
             for (int i = 0; i < sudoku.MaxValue; i++)
             {

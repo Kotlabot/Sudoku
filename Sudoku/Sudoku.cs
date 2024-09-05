@@ -41,8 +41,29 @@ namespace Sudoku
         public int CellSize { get; private set; }
         public int CellFont { get; private set; }
 
-        //Setting to every sudoku type correct values
+        //Copy constructor for solver
+        public Sudoku(Sudoku sudoku)
+        {
+            SetSudoku(sudoku.Type);
+            Cell[,] gridCopy = new Cell[MaxValue, MaxValue];
+            for (int i = 0; i < MaxValue; i++)
+            {
+                for (int j = 0; j < MaxValue; j++)
+                {
+                    gridCopy[i, j] = new Cell(sudoku.Grid[i, j]);
+                }
+            }
+            Grid = gridCopy;
+        }
+
         public Sudoku(SudokuType type)
+        {
+            SetSudoku(type);
+            Grid = GridGenerator.CreateGrid(PossibleValues, MaxValue, SquareSizeX, SquareSizeY, CellSize, CellFont);
+        }
+
+        //Setting to every sudoku type correct values
+        public void SetSudoku(SudokuType type)
         {
             switch (type)
             {
@@ -130,8 +151,6 @@ namespace Sudoku
                     CellFont = 12;
                     break;
             }
-
-            Grid = GridGenerator.CreateGrid(PossibleValues, MaxValue, SquareSizeX, SquareSizeY, CellSize, CellFont);
         }
 
         public void ClearGridText()
@@ -204,7 +223,7 @@ namespace Sudoku
         public static Sudoku LoadSudoku()
         {
             string path = GetPath();
-            if(path == null)
+            if (path == null)
             {
                 return null;
             }
@@ -224,27 +243,44 @@ namespace Sudoku
             for (int i = 0; i < sudokuSize; i++)
             {
                 string[] oneLine = allLines[i].Split(',');
+                if (oneLine.Length != sudokuSize)
+                {
+                    MessageBox.Show("Input is incorrect!");
+                    return null;
+                }
+
                 for (int j = 0; j < sudokuSize; j++)
                 {
+                    oneLine[j] = oneLine[j].Trim(' ');
                     //If size of one line is not same as size of all grid it means that sudoku grid is not valid. In this case show error message.
-                    if (oneLine.Length != sudokuSize)
+                    //If a character in file is not number, but underscore, is means that corresponding cell is empty (not solved)
+                    if (oneLine[j].Count() != 1)
                     {
                         MessageBox.Show("Input is incorrect!");
                         return null;
                     }
-                    //If a character in file is not number, but underscore, is means that corresponding cell is empty (not solved)
+
                     if (oneLine[j] == "_")
                     {
                         sudoku.Grid[i, j].Text = string.Empty;
                     }
                     else
                     {
-                        sudoku.Grid[i, j].Text = oneLine[j];
+                        if ((oneLine[j][0] >= '1' && oneLine[j][0] <= '9') ||
+                            (oneLine[j][0] >= 'A' && oneLine[j][0] <= 'G'))
+                        {
+                            sudoku.Grid[i, j].Text = oneLine[j];
+                        }
+                        else 
+                        {
+                            MessageBox.Show("Input is incorrect!");
+                            return null;
+                        }
                     }
                 }
 
             }
-            
+
             return sudoku;
 
         }

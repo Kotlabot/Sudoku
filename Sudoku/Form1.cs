@@ -20,6 +20,8 @@ namespace Sudoku
 
         private void CreateGrid(SudokuType type)
         {
+            Grid.Controls.Clear();
+
             sudoku = new Sudoku(type);
             foreach (var cell in sudoku.Grid)
             {
@@ -156,7 +158,18 @@ namespace Sudoku
         private void solveButton_Click(object sender, EventArgs e)
         {
             var solver = new Solver(sudoku);
-            solver.Solve();
+            var solved = solver.Solve();
+
+            if(solved != null)
+            {
+                Grid.Controls.Clear();
+                sudoku = solved;
+
+                foreach (var cell in sudoku.Grid)
+                {
+                    Grid.Controls.Add(cell);
+                }
+            }
         }
 
         /// <summary>

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Drawing;
+using System.Windows.Forms;
 
 namespace Sudoku
 {
@@ -9,15 +10,26 @@ namespace Sudoku
 
         public Solver(Sudoku sudoku) 
         {
-            this.sudoku = sudoku;
+            this.sudoku = new Sudoku(sudoku);
         }
 
-        public void Solve()
+        public Sudoku Solve()
         {
             SetGridToDefault();
-            SetUsersInput();
-            SudokuCore.FillRestOfTheGrid(sudoku, 0, 0);
+            if (!SetUsersInput())
+            {
+                MessageBox.Show("This Sudoku is insolvable.");
+                return null;
+            }
+
+            if (!SudokuCore.FillRestOfTheGrid(sudoku, 0, 0))
+            {
+                MessageBox.Show("This Sudoku is insolvable.");
+                return null;
+            }
+
             MakeAllCellsVisible();
+            return sudoku;
         }
 
         /// <summary>
@@ -32,7 +44,7 @@ namespace Sudoku
         /// <summary>
         /// Method to process users input of keys and store them as cells values
         /// </summary>
-        private void SetUsersInput()
+        private bool SetUsersInput()
         {
             for (int i = 0; i < sudoku.MaxValue; i++)
             {
@@ -40,12 +52,23 @@ namespace Sudoku
                 {
                     if (sudoku.Grid[i, j].Text != string.Empty)
                     {
-                        sudoku.Grid[i, j].Value = sudoku.Grid[i, j].GetFromText();
-                        // Reduce given keys from lists of possible values of other cells
-                        SudokuCore.ReduceCellsValues(sudoku, i, j, sudoku.Grid[i, j].Value);
+                        int value = sudoku.Grid[i, j].GetFromText();
+                        //If the input is incorrect, return false and throw error message
+                        if (SudokuCore.IsValidNumber(sudoku, i, j, value))
+                        {
+                            sudoku.Grid[i, j].Value = value;
+                            // Reduce given keys from lists of possible values of other cells
+                            SudokuCore.ReduceCellsValues(sudoku, i, j, sudoku.Grid[i, j].Value);
+                        }
+                        else
+                        {
+                            return false;
+                        }
                     }
                 }
             }
+
+            return true;
         }
 
         /// <summary>

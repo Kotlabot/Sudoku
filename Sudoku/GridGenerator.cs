@@ -23,7 +23,7 @@ namespace Sudoku
             }
             return grid;
         }
-        private static void ChangeValue(object sender, KeyPressEventArgs e)
+        public static void ChangeValue(object sender, KeyPressEventArgs e)
         {
             var cell = sender as Cell;
             int value;
@@ -32,6 +32,13 @@ namespace Sudoku
             if (int.TryParse(e.KeyChar.ToString(), out value))
             {
                 cell.Text = value.ToString();
+                cell.ForeColor = Color.DarkSlateGray;
+            }
+
+            //Insert to cell a letter onlt if its A-G
+            else if((int)e.KeyChar >= 65 && (int)e.KeyChar <= 71)
+            {
+                cell.Text = e.KeyChar.ToString();
                 cell.ForeColor = Color.DarkSlateGray;
             }
 

@@ -72,10 +72,9 @@ namespace Sudoku
                         
                         backupIndex++;
 
-                        //If there are no values left to try, throw error message and return.
+                        //If there are no values left to try return.
                         if (backupIndex == possibleValues.Count)
                         {
-                            MessageBox.Show("Generating failed. Try again.");
                             return;
                         }
                     }

@@ -41,6 +41,7 @@
             this.infoTextBoxSize = new System.Windows.Forms.TextBox();
             this.saveButton = new System.Windows.Forms.Button();
             this.loadButton = new System.Windows.Forms.Button();
+            this.infoSaveLoad = new System.Windows.Forms.TextBox();
             infoTextBoxGenerator = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
@@ -49,7 +50,7 @@
             infoTextBoxGenerator.BackColor = System.Drawing.SystemColors.ButtonFace;
             infoTextBoxGenerator.BorderStyle = System.Windows.Forms.BorderStyle.None;
             infoTextBoxGenerator.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            infoTextBoxGenerator.Location = new System.Drawing.Point(474, 206);
+            infoTextBoxGenerator.Location = new System.Drawing.Point(474, 89);
             infoTextBoxGenerator.Multiline = true;
             infoTextBoxGenerator.Name = "infoTextBoxGenerator";
             infoTextBoxGenerator.RightToLeft = System.Windows.Forms.RightToLeft.No;
@@ -70,7 +71,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(471, 279);
+            this.label1.Location = new System.Drawing.Point(471, 172);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(59, 16);
             this.label1.TabIndex = 1;
@@ -78,7 +79,7 @@
             // 
             // difficultyInput
             // 
-            this.difficultyInput.Location = new System.Drawing.Point(536, 279);
+            this.difficultyInput.Location = new System.Drawing.Point(536, 172);
             this.difficultyInput.Name = "difficultyInput";
             this.difficultyInput.Size = new System.Drawing.Size(34, 20);
             this.difficultyInput.TabIndex = 2;
@@ -86,7 +87,7 @@
             // buttonGenerate
             // 
             this.buttonGenerate.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonGenerate.Location = new System.Drawing.Point(590, 273);
+            this.buttonGenerate.Location = new System.Drawing.Point(588, 165);
             this.buttonGenerate.Name = "buttonGenerate";
             this.buttonGenerate.Size = new System.Drawing.Size(78, 33);
             this.buttonGenerate.TabIndex = 3;
@@ -97,7 +98,7 @@
             // buttonVerify
             // 
             this.buttonVerify.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonVerify.Location = new System.Drawing.Point(674, 273);
+            this.buttonVerify.Location = new System.Drawing.Point(680, 165);
             this.buttonVerify.Name = "buttonVerify";
             this.buttonVerify.Size = new System.Drawing.Size(78, 33);
             this.buttonVerify.TabIndex = 4;
@@ -110,7 +111,7 @@
             this.infoTextBoxSolver.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.infoTextBoxSolver.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.infoTextBoxSolver.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.infoTextBoxSolver.Location = new System.Drawing.Point(474, 325);
+            this.infoTextBoxSolver.Location = new System.Drawing.Point(474, 216);
             this.infoTextBoxSolver.Multiline = true;
             this.infoTextBoxSolver.Name = "infoTextBoxSolver";
             this.infoTextBoxSolver.Size = new System.Drawing.Size(284, 74);
@@ -122,7 +123,7 @@
             // solveButton
             // 
             this.solveButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.solveButton.Location = new System.Drawing.Point(474, 407);
+            this.solveButton.Location = new System.Drawing.Point(474, 296);
             this.solveButton.Name = "solveButton";
             this.solveButton.Size = new System.Drawing.Size(78, 33);
             this.solveButton.TabIndex = 7;
@@ -133,7 +134,7 @@
             // buttonClearGrid
             // 
             this.buttonClearGrid.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonClearGrid.Location = new System.Drawing.Point(558, 407);
+            this.buttonClearGrid.Location = new System.Drawing.Point(567, 296);
             this.buttonClearGrid.Name = "buttonClearGrid";
             this.buttonClearGrid.Size = new System.Drawing.Size(78, 33);
             this.buttonClearGrid.TabIndex = 9;
@@ -175,7 +176,7 @@
             // saveButton
             // 
             this.saveButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.saveButton.Location = new System.Drawing.Point(618, 38);
+            this.saveButton.Location = new System.Drawing.Point(474, 409);
             this.saveButton.Name = "saveButton";
             this.saveButton.Size = new System.Drawing.Size(78, 33);
             this.saveButton.TabIndex = 12;
@@ -186,7 +187,7 @@
             // loadButton
             // 
             this.loadButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.loadButton.Location = new System.Drawing.Point(710, 38);
+            this.loadButton.Location = new System.Drawing.Point(567, 409);
             this.loadButton.Name = "loadButton";
             this.loadButton.Size = new System.Drawing.Size(78, 33);
             this.loadButton.TabIndex = 13;
@@ -194,11 +195,26 @@
             this.loadButton.UseVisualStyleBackColor = true;
             this.loadButton.Click += new System.EventHandler(this.loadButton_Click);
             // 
+            // infoSaveLoad
+            // 
+            this.infoSaveLoad.BackColor = System.Drawing.SystemColors.ButtonFace;
+            this.infoSaveLoad.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.infoSaveLoad.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.infoSaveLoad.Location = new System.Drawing.Point(474, 335);
+            this.infoSaveLoad.Multiline = true;
+            this.infoSaveLoad.Name = "infoSaveLoad";
+            this.infoSaveLoad.Size = new System.Drawing.Size(306, 68);
+            this.infoSaveLoad.TabIndex = 14;
+            this.infoSaveLoad.Text = "To save Sudoku grid as text file press the \"Save!\" button.\r\nTo load Sudoku grid f" +
+    "rom a text file press the \"Load!\" button.";
+            // 
             // Form1
             // 
+            this.AccessibleRole = System.Windows.Forms.AccessibleRole.None;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(809, 472);
+            this.Controls.Add(this.infoSaveLoad);
             this.Controls.Add(this.loadButton);
             this.Controls.Add(this.saveButton);
             this.Controls.Add(this.infoTextBoxSize);
@@ -212,8 +228,9 @@
             this.Controls.Add(this.difficultyInput);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.Grid);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Name = "Form1";
-            this.Text = "Form1";
+            this.Text = "Sudoku";
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -233,6 +250,7 @@
         private System.Windows.Forms.TextBox infoTextBoxSize;
         private System.Windows.Forms.Button saveButton;
         private System.Windows.Forms.Button loadButton;
+        private System.Windows.Forms.TextBox infoSaveLoad;
     }
 }
 

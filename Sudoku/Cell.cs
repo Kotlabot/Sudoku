@@ -36,6 +36,29 @@ namespace Sudoku
             InitialValues = new List<int>(PossibleValues);
         }
 
+        //Copy constructor for solver 
+        public Cell(Cell cell) 
+        {
+            X = cell.X;
+            Y = cell.Y;
+            Value = cell.Value;
+
+            Size = cell.Size;
+            Location = cell.Location;
+
+            Font = cell.Font;
+            ForeColor = Color.Black;
+            FlatStyle = FlatStyle.Flat;
+            FlatAppearance.BorderColor = Color.Black;
+
+            BackColor = cell.BackColor;
+            KeyPress += GridGenerator.ChangeValue;
+            Text = cell.Text;
+
+            PossibleValues = new List<int>(cell.PossibleValues);
+            InitialValues = new List<int>(cell.InitialValues);
+        }
+
         /// <summary>
         /// Method to display values assigned to the cells as text that user can see.
         /// </summary>
