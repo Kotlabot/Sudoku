@@ -1,0 +1,10 @@
+C:\Users\Terezka\Desktop\Terezka\UK\Programování I a II\Zápočtový program\Sudoku\Sudoku\bin\Release\Sudoku.exe.config
+C:\Users\Terezka\Desktop\Terezka\UK\Programování I a II\Zápočtový program\Sudoku\Sudoku\bin\Release\Sudoku.exe
+C:\Users\Terezka\Desktop\Terezka\UK\Programování I a II\Zápočtový program\Sudoku\Sudoku\bin\Release\Sudoku.pdb
+C:\Users\Terezka\Desktop\Terezka\UK\Programování I a II\Zápočtový program\Sudoku\Sudoku\obj\Release\Sudoku.csproj.AssemblyReference.cache
+C:\Users\Terezka\Desktop\Terezka\UK\Programování I a II\Zápočtový program\Sudoku\Sudoku\obj\Release\Sudoku.Form1.resources
+C:\Users\Terezka\Desktop\Terezka\UK\Programování I a II\Zápočtový program\Sudoku\Sudoku\obj\Release\Sudoku.Properties.Resources.resources
+C:\Users\Terezka\Desktop\Terezka\UK\Programování I a II\Zápočtový program\Sudoku\Sudoku\obj\Release\Sudoku.csproj.GenerateResource.cache
+C:\Users\Terezka\Desktop\Terezka\UK\Programování I a II\Zápočtový program\Sudoku\Sudoku\obj\Release\Sudoku.csproj.CoreCompileInputs.cache
+C:\Users\Terezka\Desktop\Terezka\UK\Programování I a II\Zápočtový program\Sudoku\Sudoku\obj\Release\Sudoku.exe
+C:\Users\Terezka\Desktop\Terezka\UK\Programování I a II\Zápočtový program\Sudoku\Sudoku\obj\Release\Sudoku.pdb
