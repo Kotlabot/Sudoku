@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
-using System.Windows.Forms;
 
 namespace Sudoku
 {
@@ -50,6 +49,9 @@ namespace Sudoku
             }
         }
 
+        /// <summary>
+        /// Method to fill diagonal square of the sudoku grid by placing random numbers from list of possible values of each cell.
+        /// </summary>
         private void FillOneSquare(int row, int column)
         {
             //Make list of possible values for a cell, from which we step by step remove used values.
@@ -64,6 +66,7 @@ namespace Sudoku
                     //randomValue pics one index from defined range, number on that index of a list possibleNumbers is than assigned to cell as a cell.Value.
                     index = randomValue.Next(0, possibleValues.Count - 1);
                     var backupIndex = 0;
+                    //For each value check if it can be placed or if composition of other palced values leads to other cell has no options in possilbe values
                     while (!IsPossibleToChoose(sudoku, row, column, possibleValues[index]))
                     {
                         //If there are some values left, try other value.

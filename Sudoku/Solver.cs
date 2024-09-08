@@ -16,12 +16,14 @@ namespace Sudoku
         public Sudoku Solve()
         {
             SetGridToDefault();
+            //If users input is incorrect (one of the proccesed values is already placed in row, column or square), throw error message.
             if (!SetUsersInput())
             {
                 MessageBox.Show("This Sudoku is insolvable.");
                 return null;
             }
 
+            //If algorithm was not able to find any solution, throws message error.
             if (!SudokuCore.FillRestOfTheGrid(sudoku, 0, 0))
             {
                 MessageBox.Show("This Sudoku is insolvable.");

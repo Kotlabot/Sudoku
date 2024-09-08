@@ -6,6 +6,10 @@ namespace Sudoku
 {
     internal class GridGenerator
     {
+        /// <summary>
+        /// Creates grid (grid of cells represented by multidimensional array) according to given size.
+        /// </summary>
+        /// <returns></returns>
         public static Cell[,] CreateGrid(List<int> possibleValues, int size, int squareX, int squareY, int cellsize, int font)
         {
             Cell[,] grid = new Cell[size, size];
@@ -17,12 +21,16 @@ namespace Sudoku
 
                     //Make the sudoku squares different colours
                     grid[i, j].BackColor = ((i / squareY) + (j / squareX)) % 2 == 0 ? Color.LightSkyBlue : Color.CornflowerBlue;
-
+                    //Event handler for cell when keypressed
                     grid[i, j].KeyPress += ChangeValue;
                 }
             }
             return grid;
         }
+        /// <summary>
+        /// Event handler for cells. When user press a key, verifies if its a number or acceptable letter of alphabet or backspace for deleting the cell text.
+        /// </summary>
+
         public static void ChangeValue(object sender, KeyPressEventArgs e)
         {
             var cell = sender as Cell;

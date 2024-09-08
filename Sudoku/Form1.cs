@@ -1,7 +1,6 @@
 ﻿using System.Drawing;
 using System.Windows.Forms;
 using System;
-using System.Linq;
 
 namespace Sudoku
 {
@@ -18,6 +17,9 @@ namespace Sudoku
             CreateGrid(SudokuType.x9);
         }
 
+        /// <summary>
+        /// Method clears grid (form grid) and then creates new sudoku grid according to the given type.
+        /// </summary>
         private void CreateGrid(SudokuType type)
         {
             Grid.Controls.Clear();

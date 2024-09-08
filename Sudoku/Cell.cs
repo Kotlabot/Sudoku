@@ -25,6 +25,7 @@ namespace Sudoku
             Y = row;
             Value = value;
             
+            //Setting button appearence
             Size = new Size(size, size);
             Location = new Point(X * size, Y * size);
             Font = new Font("Arial", font, FontStyle.Bold);
